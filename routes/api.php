@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\FallbackController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ItemController;
+use App\Http\Middleware\AuthenticateApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,11 +22,22 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return 'something nice';
 });
 
-// Route::middleware(['auth:sanctum'])->group(function() {
+Route::middleware(AuthenticateApi::class)->group(function() {
+    //Invoice
     Route::prefix('invoice')->group(function()
     {
-        Route::get('/');
+          Route::get('/', [InvoiceController::class, 'index']);
+          Route::post('/', [InvoiceController::class, 'store']);
     });
-// });
+    
+
+    //Item
+    Route::prefix('item')->group(function(){
+
+        Route::get('/{item_code}',[ItemController::class,'show']);
+        Route::get('/',[ItemController::class,'index']);
+        Route::post('/', [ItemController::class,'store']);
+    });
+});
 
 Route::fallback(FallbackController::class);
