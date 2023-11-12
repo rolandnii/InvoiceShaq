@@ -17,8 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-       $user = User::where('email','test@example.com')->first();
-       Log::error( $user->createToken($user->email)->plainTextToken);
-       
+        $user = User::factory()->create([
+            'email' => 'test@me.com',
+            'name' => 'Roland Dodoo',
+        ]);
+        Log::error($user->createToken($user->email)->plainTextToken);
     }
 }

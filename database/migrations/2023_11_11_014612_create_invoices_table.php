@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::dropIfExists('invoices');
 
         Schema::create('invoices', function (Blueprint $table) {
-            $table->id('invoice_id');
-            $table->foreignUuid('customer_id')->constrained(
+            $table->string('id')->primary();
+            $table->foreignUlid('customer_id')->constrained(
                 table: 'users' , indexName: 'customer_id'
-            );
-            $table->integer('item_id');
-            $table->integer('quantity');
-            $table->decimal('subtotal');
+            )->cascadeOnDelete()->cascadeOnUpdate();
+            $table->decimal('total_amount');
             $table->date('issue_date');
             $table->date('due_date');
 

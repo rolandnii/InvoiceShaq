@@ -22,21 +22,22 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return 'something nice';
 });
 
-Route::middleware(AuthenticateApi::class)->group(function() {
+Route::middleware(AuthenticateApi::class)->group(function () {
     //Invoice
-    Route::prefix('invoice')->group(function()
-    {
-          Route::get('/', [InvoiceController::class, 'index']);
-          Route::post('/', [InvoiceController::class, 'store']);
+    Route::prefix('invoice')->group(function () {
+        Route::get('/{invoice_id}', [InvoiceController::class, 'show']);
+        Route::get('/', [InvoiceController::class, 'index']);
+        Route::post('/', [InvoiceController::class, 'store']);
+        Route::get('customer/{cutomer_id}',[InvoiceController::class,'showCustomerInvoices']);
     });
-    
+
 
     //Item
-    Route::prefix('item')->group(function(){
+    Route::prefix('item')->group(function () {
 
-        Route::get('/{item_code}',[ItemController::class,'show']);
-        Route::get('/',[ItemController::class,'index']);
-        Route::post('/', [ItemController::class,'store']);
+        Route::get('/{item_code}', [ItemController::class, 'show']);
+        Route::get('/', [ItemController::class, 'index']);
+        Route::post('/', [ItemController::class, 'store']);
     });
 });
 

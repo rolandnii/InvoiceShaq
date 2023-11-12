@@ -14,7 +14,7 @@ use Illuminate\Validation\Rule;
 
 class ItemController extends Controller
 {
-    public function index() : JsonResponse
+    public function index(): JsonResponse
     {
         try {
 
@@ -25,14 +25,13 @@ class ItemController extends Controller
                     Item::all()
                 )
             ]);
-
-
         } catch (Exception $ex) {
             Log::error($ex->getMessage());
 
             return response()->json([
                 'ok' => false,
                 'msg' => 'An internal error occured. Please try again later',
+                'error' => $ex->getMessage(),
             ]);
         }
     }
@@ -79,42 +78,42 @@ class ItemController extends Controller
             return response()->json([
                 'ok' => false,
                 'msg' => 'An internal error occured. Please try again later',
+                'error' => $ex->getMessage(),
             ]);
         }
     }
 
-    public function show($item_code) : JsonResponse {
+    public function show($item_code): JsonResponse
+    {
         try {
 
             $item = Item::findOr($item_code, function () {
-                
+
                 return false;
             });
 
-            if(!$item)
-            {
+            if (!$item) {
                 return response()->json([
                     'ok' => false,
                     'msg' => 'Item code is invalid'
                 ]);
             }
 
-            
+
             return response()->json([
                 'ok' => true,
                 'msg' => 'Item details fetched successfully',
                 'data' => new ItemResource(
-                      $item
+                    $item
                 )
             ]);
-
-
         } catch (Exception $ex) {
             Log::error($ex->getMessage());
 
             return response()->json([
                 'ok' => false,
                 'msg' => 'An internal error occured. Please try again later',
+                'error' => $ex->getMessage(),
             ]);
         }
     }

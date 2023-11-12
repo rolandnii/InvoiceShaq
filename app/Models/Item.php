@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
@@ -17,5 +18,15 @@ class Item extends Model
         'unit_price',
     ];
 
+    // protected $with  = [
+    //     'invoice_item',
+    // ];
+
+    // public function InvoiceItem(): HasMany
+    // {
+    //     return  $this->hasMany(InvoiceItem::class,'item_id','item_id');
+    // }
+
+    
 
 }
