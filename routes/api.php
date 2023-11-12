@@ -28,13 +28,13 @@ Route::middleware(AuthenticateApi::class)->group(function () {
         Route::get('/{invoice_id}', [InvoiceController::class, 'show']);
         Route::get('/', [InvoiceController::class, 'index']);
         Route::post('/', [InvoiceController::class, 'store']);
+        Route::delete('/{invoice_id}',[InvoiceController::class,'destroy']);
         Route::get('customer/{cutomer_id}',[InvoiceController::class,'showCustomerInvoices']);
-    });
+    })->withoutMiddleware(AuthenticateApi::class);
 
 
     //Item
     Route::prefix('item')->group(function () {
-
         Route::get('/{item_code}', [ItemController::class, 'show']);
         Route::get('/', [ItemController::class, 'index']);
         Route::post('/', [ItemController::class, 'store']);

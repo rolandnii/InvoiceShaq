@@ -22,6 +22,7 @@ class InvoiceController extends Controller
     private $totalAmount;
     
 
+    //fetching all invoice
     public function index(): JsonResponse
     {
         try {
@@ -46,6 +47,7 @@ class InvoiceController extends Controller
     }
 
 
+    //Store an invoice
     public function store(Request $request): JsonResponse
     {
 
@@ -193,10 +195,9 @@ class InvoiceController extends Controller
                 ]);
             }
 
-
             return response()->json([
                 'ok' => true,
-                'msg' => 'Invoice details fetched successfully',
+                'msg' => 'Customer invoices fetched successfully',
                 'data' => InvoiceResource::collection($customer->invoices)
             ]);
         } catch (Exception $ex) {
@@ -209,4 +210,41 @@ class InvoiceController extends Controller
             ],Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    //delete
+    public function destroy($invoice_id): JsonResponse
+    {
+        try {
+
+            $invoice = Invoice::findOr($invoice_id, function () {
+
+                return false;
+            });
+
+            if (!$invoice) {
+                return response()->json([
+                    'ok' => false,
+                    'msg' => 'Invoice code is invalid'
+                ]);
+            }
+            $invoice->delete();
+
+
+            return response()->json([
+                'ok' => true,
+                'msg' => 'Invoice deleted successfully',
+            ]);
+
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'ok' => false,
+                'msg' => 'An internal error occured. Please try again later',
+                'error' => $ex->getMessage(),
+            ],Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }
