@@ -197,7 +197,7 @@ class InvoiceController extends Controller
             return response()->json([
                 'ok' => true,
                 'msg' => 'Invoice details fetched successfully',
-                'data' => []
+                'data' => InvoiceResource::collection($customer->invoices)
             ]);
         } catch (Exception $ex) {
             Log::error($ex->getMessage());

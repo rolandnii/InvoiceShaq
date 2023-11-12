@@ -49,13 +49,13 @@ class User extends Authenticatable
     ];
 
 
-    // protected $with  = [
-    //     'invoices',
-    // ];
+    protected $with  = [
+        'invoices',
+    ];
 
-    // public function invoices(): HasMany
-    // {
-    //     return  $this->hasMany(Invoice::class,'customer_id','id');
-    // }
+    public function invoices(): HasMany
+    {
+        return  $this->hasMany(Invoice::class,'customer_id','id');
+    }
     
 }
