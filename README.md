@@ -1,11 +1,22 @@
-# Invoicing System API Documentation
-## Using API Key in Request Query
+## Invoicing System API Documentation
 
-To access the API, include your API key in the request query using the Authorization Bearer format.
+### Table of Contents
+* [Overview](#overview)
+* [Authentication](#authentication)
+* [Endpoints](#endpoint)
+    * [Invoice](#invoice)
+        * [Create Invoice](#create-invoice)
+        * [Get Invoice](#get-single-invoice)
+        * [Delete Invoice](#get-single-invoice)
+        * [List Invoice](#get-single-invoice)
+    * [Item](#resource-2)
+        * [Create Item](#create-item)
+        * [Get Item](#create-item)
+        * [Update Item](#update-item)
+        * [Delete Item](#delete-item)
+        * [List Item](#list-item)
 
-Example Request:
 
-```http
-GET /api/endpoint?api_key=YOUR_API_KEY
-```
+
+
 
