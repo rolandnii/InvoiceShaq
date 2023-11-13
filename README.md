@@ -32,7 +32,7 @@ Request
   "password": "password"
 }
 ```
-Response
+Sample Response
 ```json
 {
 	"ok": true,
@@ -62,6 +62,7 @@ GET /api/endpoint?api_key=YOUR_API_Token
 ## Invoice
 
 ### Create Invoice
+Create a new invoice.
 ```http
 POST /invoice
 Content-Type: application/json
@@ -81,13 +82,47 @@ Request:
 	"due_date": "2023-11-21"
 }
 ```
-Response
+Sample Response
 ```json
 {
 	"ok": true,
 	"msg": "Creating an invoice successful"
 }
 ```
+### Get Invoice
+Get details of a specific invoice
+```http
+GET /invoice/{invoice_id}
+```
+Example
+```http
+GET /invoice/INV-2023-11-0000
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "Invoice details fetched successfully",
+	"data": {
+		"invoice_id": "INV-2023-11-0000",
+		"customer_id": "01hf0e37d0db737qzxegyx6312",
+		"customer_name": "Roland Dodoo",
+		"customer_email": "test@me.com",
+		"issue_date": "2023-10-21",
+		"due_date": "2023-11-21",
+		"total_amount": "20.00",
+		"items": [
+			{
+				"description": "Shirt",
+				"unit_price": "20.00",
+				"subtotal": "20.00",
+				"quantity": 1
+			}
+		]
+	}
+}
+```
+
 
 
 

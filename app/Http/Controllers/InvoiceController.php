@@ -163,7 +163,7 @@ class InvoiceController extends Controller
 
             return response()->json([
                 'ok' => true,
-                'msg' => 'Customer invoices fetched successfully',
+                'msg' => 'Invoice details fetched successfully',
                 'data' => InvoiceResource::make($invoice)
             ]);
 
