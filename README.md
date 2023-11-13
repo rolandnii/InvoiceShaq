@@ -1,6 +1,6 @@
 ## Invoicing System API Documentation
 
-### Table of Contents
+<!-- ### Table of Contents
 * [Authentication](#authentication)
 * [Endpoints](#endpoint)
     * [Invoice](#invoice)
@@ -13,9 +13,9 @@
         * [Get Item](#create-item)
         * [Update Item](#update-item)
         * [Delete Item](#delete-item)
-        * [List Item](#list-item)
+        * [List Item](#list-item) -->
 
-### Authenticaton
+### Authentication
 To access the API, you will need to obtain an access token. You can do this by sending a POST request to the `/api/login` endpoint with your email address and password.
 URI
 ```http
@@ -24,8 +24,8 @@ POST /login
 Request
 ```json
 {
-  "email": "my@email.com",
-  "password": "mypassword"
+  "email": "test@me.com",
+  "password": "password"
 }
 ```
 Response
