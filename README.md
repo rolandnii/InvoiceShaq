@@ -15,11 +15,13 @@
         * [Delete Item](#delete-item)
         * [List Item](#list-item) -->
 
-### Authentication
-To access the API, you will need to obtain an access token. You can do this by sending a POST request to the `/api/login` endpoint with your email address and password.
+## Authentication
+
+### Get API Token
+To access the API, you will need to obtain an access token. You can do this by sending a POST request to the `api/login` endpoint with your email address and password.
 URI
 ```http
-POST /login
+POST api/login
 ```
 Request
 ```json
@@ -41,7 +43,20 @@ Response
 	}
 }
 ```
+### Using API Token in Authorization Header
 
+Include your API token in the Authorization header using the Bearer toke format.
+Example Request:
+```http
+GET /api/invoices
+Authorization: Bearer YOUR_API_Token
+```
+### Using API Token in Request Query
+Include  your API token in a request query.
+Example Request:
+```http
+GET /api/invoices?api_key=YOUR_API_Token
+```
 
 
 
