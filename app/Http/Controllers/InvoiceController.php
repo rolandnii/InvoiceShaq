@@ -29,7 +29,7 @@ class InvoiceController extends Controller
 
             return response()->json([
                 'ok' => true,
-                'msg' => 'Items fetched successfully',
+                'msg' => 'All invoices fetched successfully',
                 'data' => InvoiceResource::collection(
                     Invoice::all()
                 )

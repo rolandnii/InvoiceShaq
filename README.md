@@ -1,22 +1,18 @@
 ## Invoicing System API Documentation
 
 ### Table of Contents
-* [Authentication](#authentication)
-   * [Get API Token](#get-api-token)
-   * [Using API Token in Authorization Header](#using-api-authorization-header)
-   * [Using API Token in Request Query](#using-api-token-in-request-query)
-* [Endpoints](#endpoints)
-    * [Invoice](#invoice)
-        * [Create Invoice](#create-invoice)
-        * [Get Invoice](#get-single-invoice)
-        * [Delete Invoice](#get-single-invoice)
-        * [List Invoice](#get-single-invoice)
-    * [Item](#resource-2)
-        * [Create Item](#create-item)
-        * [Get Item](#create-item)
-        * [Update Item](#update-item)
-        * [Delete Item](#delete-item)
-        * [List Item](#list-item)
+- [Endpoints](#endpoints)
+	- [Invoice](#invoice)
+		- [Create Invoice](#create-invoice)
+		- [Get Invoice](#get-invoice)
+		- [Delete Invoice](#delete-invoice)
+		- [List Invoice](#list-invoice)
+	- [Item](#item)
+		- [Create Item](#create-item)
+		- [Get Item](#get-item)
+		- [Update Item](#update-item)
+		- [Delete Item](#delete-item)
+		- [List Item](#list-item)
 
 ## Authentication
 
@@ -120,6 +116,194 @@ Sample Response
 			}
 		]
 	}
+}
+```
+### Delete Invoice
+Delete a specific invoice.
+Get details of a specific invoice
+```http
+DELETE /invoice/{invoice_id}
+```
+Example
+```http
+DELETE /invoice/INV-2023-11-0000
+```
+Sample Response
+```json
+{
+    "ok": true,
+    "msg": "Invoice deleted successfully",
+}
+```
+
+### List Invoice
+Retrieve a list of all invoices.
+```http
+GET /invoice/
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "All invoices fetched successfully",
+	"data": [
+		{
+			"invoice_id": "INV-2023-11-0000",
+			"customer_id": "01hf0e37d0db737qzxegyx6312",
+			"customer_name": "Roland Dodoo",
+			"customer_email": "test@me.com",
+			"issue_date": "2023-10-21",
+			"due_date": "2023-11-21",
+			"total_amount": "20.00",
+			"items": [
+				{
+					"description": "Shirt",
+					"unit_price": "20.00",
+					"subtotal": "20.00",
+					"quantity": 1
+				}
+			]
+		},
+		{
+			"invoice_id": "INV-2023-11-0001",
+			"customer_id": "01hf0e37d0db737qzxegyx6312",
+			"customer_name": "Roland Dodoo",
+			"customer_email": "test@me.com",
+			"issue_date": "2023-10-21",
+			"due_date": "2023-11-21",
+			"total_amount": "20.00",
+			"items": [
+				{
+					"description": "Shirt",
+					"unit_price": "20.00",
+					"subtotal": "20.00",
+					"quantity": 1
+				}
+			]
+		}
+	]
+}
+```
+## Item
+
+### Create Item
+Create a new item.
+```http
+POST /item
+Content-Type: application/json
+```
+Request:
+```json
+{
+	"description": "sandals men",
+	"unit_price": "2023-10-21",
+	"total_quantity": "2023-11-21",
+}
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "New item created successfully"
+}
+```
+### Get Item
+Get details of a specific item
+```http
+GET /item/{item_id}
+```
+Example
+```http
+GET /item/1
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "Item details fetched successfully",
+	"data": {
+		"description": "Socks",
+		"unit_price": "12.50",
+		"total_quantity": 25
+	}
+}
+
+```
+### Update Item
+Update an existing item.
+```http
+POST /item/update/{item_id}
+```
+Example 
+```http
+POST /item/update/1
+```
+Request:
+```json
+{
+	
+	"description": "sandals men",
+	"unit_price": "2023-10-21",
+	"total_quantity": "2023-11-21",
+}
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "Item updated successfully"
+}
+```
+### Delete Item
+Delete a specific item.
+Get details of a specific item
+```http
+DELETE /item/{item_id}
+```
+Example
+```http
+DELETE /item/1
+```
+Sample Response
+```json
+{
+    "ok": true,
+    "msg": "item deleted successfully",
+}
+```
+
+### List Item
+Retrieve a list of all invoices.
+```http
+GET /item/
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "Items fetched successfully",
+	"data": [
+		{
+			"description": "Socks",
+			"unit_price": "12.50",
+			"total_quantity": 25
+		},
+		{
+			"description": "Shirt",
+			"unit_price": "20.00",
+			"total_quantity": 11
+		},
+		{
+			"description": "Sandals",
+			"unit_price": "35.00",
+			"total_quantity": 10
+		},
+		{
+			"description": "sandals men",
+			"unit_price": "20.00",
+			"total_quantity": 10
+		}
+	]
 }
 ```
 
