@@ -3,9 +3,9 @@
 ### Table of Contents
 * [Authentication](#authentication)
    * [Get API Token](#get-api-token)
-   * [Using API Token in Authorization Header](#Using-API-Authorization-Header)
-   * [Invoice](#invoice)
-* [Endpoints](#endpoint)
+   * [Using API Token in Authorization Header](#using-api-authorization-header)
+   * [Using API Token in Request Query](#using-api-token-in-request-query)
+* [Endpoints](#endpoints)
     * [Invoice](#invoice)
         * [Create Invoice](#create-invoice)
         * [Get Invoice](#get-single-invoice)
@@ -22,7 +22,6 @@
 
 ### Get API Token
 To access the API, you will need to obtain an access token. You can do this by sending a POST request to the `api/login` endpoint with your email address and password.
-URI
 ```http
 POST /login
 ```
@@ -49,17 +48,50 @@ Response
 ### Using API Token in Authorization Header
 
 Include your API token in the Authorization header using the Bearer toke format.
-Example Request:
 ```http
-GET /api/invoices
+GET /api/endpoint
 Authorization: Bearer YOUR_API_Token
 ```
 ### Using API Token in Request Query
 Include  your API token in a request query.
-Example Request:
 ```http
-GET /api/invoices?api_key=YOUR_API_Token
+GET /api/endpoint?api_key=YOUR_API_Token
 ```
+# Endpoints
+
+## Invoice
+
+### Create Invoice
+```http
+POST /invoice
+Content-Type: application/json
+```
+Request:
+```json
+{
+	"items": [
+		
+		{
+			"item_code": 2,
+			"quantity": 1
+		}
+	],
+	"customer_id": "01hf0e37d0db737qzxegyx6312",
+	"issue_date": "2023-10-21",
+	"due_date": "2023-11-21"
+}
+```
+Response
+```json
+{
+	"ok": true,
+	"msg": "Creating an invoice successful"
+}
+```
+
+
+
+
 
 
 
