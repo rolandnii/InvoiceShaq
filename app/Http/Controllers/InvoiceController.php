@@ -112,7 +112,8 @@ class InvoiceController extends Controller
 
                 InvoiceItem::create([
                     "invoice_id" => $invoiceCode,
-                    'item_id' => $item['item_code'],
+                    'item_description' => $itemDetails->item_description,
+                    'unit_price' => $itemDetails->unit_price,
                     'subtotal' => $subtotal,
                     'quantity' => $item['quantity'],
                 ]);
@@ -162,11 +163,13 @@ class InvoiceController extends Controller
 
             return response()->json([
                 'ok' => true,
-                'msg' => 'Invoice details fetched successfully',
-                'data' => new InvoiceResource(
-                    $invoice
-                )
+                'msg' => 'Customer invoices fetched successfully',
+                'data' => InvoiceResource::make($invoice)
             ]);
+
+            
+
+          
         } catch (Exception $ex) {
             Log::error($ex->getMessage());
 
@@ -200,6 +203,7 @@ class InvoiceController extends Controller
                 'msg' => 'Customer invoices fetched successfully',
                 'data' => InvoiceResource::collection($customer->invoices)
             ]);
+
         } catch (Exception $ex) {
             Log::error($ex->getMessage());
 
@@ -244,6 +248,7 @@ class InvoiceController extends Controller
                 'error' => $ex->getMessage(),
             ],Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+
     }
 
 

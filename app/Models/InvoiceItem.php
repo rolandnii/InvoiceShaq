@@ -14,23 +14,20 @@ class InvoiceItem extends Model
 
     protected $fillable = [
         'invoice_id',
-        'item_id',
+        'item_description',
+        'unit_price',
         'quantity',
         'subtotal',
     ];
 
     protected $with  = [
-        // 'invoice',
-        'item'
+        'invoice',
     ];
 
-    // public function invoice(): BelongsTo
-    // {
-    //     return  $this->belongsTo(Invoice::class,'id','invoice_id');
-    // }
-
-    public function item(): HasOne
-    { 
-        return $this->hasOne(Item::class,'item_id','item_id');
+    public function invoice(): BelongsTo
+    {
+        return  $this->belongsTo(Invoice::class,'invoice_id','id');
     }
+
+    
 }

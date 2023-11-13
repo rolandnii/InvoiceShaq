@@ -32,7 +32,7 @@ class ItemController extends Controller
                 'ok' => false,
                 'msg' => 'An internal error occured. Please try again later',
                 'error' => $ex->getMessage(),
-            ]);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -79,7 +79,7 @@ class ItemController extends Controller
                 'ok' => false,
                 'msg' => 'An internal error occured. Please try again later',
                 'error' => $ex->getMessage(),
-            ]);
+            ],Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -106,6 +106,94 @@ class ItemController extends Controller
                 'data' => new ItemResource(
                     $item
                 )
+            ]);
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'ok' => false,
+                'msg' => 'An internal error occured. Please try again later',
+                'error' => $ex->getMessage(),
+            ]);
+        }
+    }
+
+
+    public function destroy($item_code): JsonResponse
+    {
+        try {
+
+            $item = Item::findOr($item_code, function () {
+
+                return false;
+            });
+
+            if (!$item) {
+                return response()->json([
+                    'ok' => false,
+                    'msg' => 'Item code is invalid'
+                ]);
+            }
+
+            $item->delete();
+
+            return response()->json([
+                'ok' => true,
+                'msg' => 'Item deleted successfully',
+            ]);
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'ok' => false,
+                'msg' => 'An internal error occured. Please try again later',
+                'error' => $ex->getMessage(),
+            ]);
+        }
+    }
+
+    public function update($item_code, Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'description' => ['required', 'string', Rule::unique('items', 'item_description')->ignore($item_code,'item_id')],
+                'unit_price' => ['required', 'numeric',],
+                'total_quantity' => ['required', 'numeric'],
+            ],
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'ok' => false,
+                'msg' => 'Updating item failed',
+                'error' => $validator->errors()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+
+            $item = Item::findOr($item_code, function () {
+
+                return false;
+            });
+
+            if (!$item) {
+                return response()->json([
+                    'ok' => false,
+                    'msg' => 'Item code is invalid'
+                ]);
+            }
+
+            $item->update([
+                'item_description' => $request->input('description'),
+                'total_quantity' => $request->input('total_quantity'),
+                'unit_price' => $request->input('unit_price'),
+            ]);
+
+            return response()->json([
+                'ok' => true,
+                'msg' => 'Item updated successfully',
             ]);
         } catch (Exception $ex) {
             Log::error($ex->getMessage());

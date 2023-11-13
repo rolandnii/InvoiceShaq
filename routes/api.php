@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemController;
@@ -18,8 +19,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return 'something nice';
+// Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+//     return 'something nice';
+// });
+
+Route::controller(AuthenticationController::class)->group(function () {
+
+    Route::post('login', 'login');
 });
 
 Route::middleware(AuthenticateApi::class)->group(function () {
@@ -28,9 +34,9 @@ Route::middleware(AuthenticateApi::class)->group(function () {
         Route::get('/{invoice_id}', [InvoiceController::class, 'show']);
         Route::get('/', [InvoiceController::class, 'index']);
         Route::post('/', [InvoiceController::class, 'store']);
-        Route::delete('/{invoice_id}',[InvoiceController::class,'destroy']);
-        Route::get('customer/{cutomer_id}',[InvoiceController::class,'showCustomerInvoices']);
-    })->withoutMiddleware(AuthenticateApi::class);
+        Route::delete('/{invoice_id}', [InvoiceController::class, 'destroy']);
+        Route::get('customer/{cutomer_id}', [InvoiceController::class, 'showCustomerInvoices']);
+    });
 
 
     //Item
@@ -38,6 +44,8 @@ Route::middleware(AuthenticateApi::class)->group(function () {
         Route::get('/{item_code}', [ItemController::class, 'show']);
         Route::get('/', [ItemController::class, 'index']);
         Route::post('/', [ItemController::class, 'store']);
+        Route::delete('/{item_code}', [ItemController::class, 'destroy']);
+        Route::post('update/{item_code}', [ItemController::class, 'update']);
     });
 });
 

@@ -23,10 +23,8 @@ class Invoice extends Model
         'total_amount',
     ];
 
-    protected $with  = [
-        'items',
-        // 'user'
-    ];
+
+    
 
     public function items(): HasMany
     {
@@ -37,6 +35,7 @@ class Invoice extends Model
     { 
         return $this->belongsTo(User::class,'customer_id','id');
     }
+
     
 
 }

@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Roland Dodoo',
         ]);
         Log::error($user->createToken($user->email)->plainTextToken);
+        
     }
 }
