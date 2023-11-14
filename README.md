@@ -19,7 +19,7 @@
 ### Get API Token
 To access the API, you will need to obtain an access token. You can do this by sending a POST request to the `api/login` endpoint with your email address and password.
 ```http
-POST /login
+POST /api/login
 ```
 Request
 ```json
@@ -60,7 +60,7 @@ GET /api/endpoint?api_key=YOUR_API_Token
 ### Create Invoice
 Create a new invoice.
 ```http
-POST /invoice
+POST /api/invoice
 Content-Type: application/json
 ```
 Request:
@@ -88,11 +88,11 @@ Sample Response
 ### Get Invoice
 Get details of a specific invoice
 ```http
-GET /invoice/{invoice_id}
+GET /api/invoice/{invoice_id}
 ```
 Example
 ```http
-GET /invoice/INV-2023-11-0000
+GET /api/invoice/INV-2023-11-0000
 ```
 Sample Response
 ```json
@@ -122,11 +122,11 @@ Sample Response
 Delete a specific invoice.
 Get details of a specific invoice
 ```http
-DELETE /invoice/{invoice_id}
+DELETE /api/invoice/{invoice_id}
 ```
 Example
 ```http
-DELETE /invoice/INV-2023-11-0000
+DELETE /api/invoice/INV-2023-11-0000
 ```
 Sample Response
 ```json
@@ -139,7 +139,7 @@ Sample Response
 ### List Invoice
 Retrieve a list of all invoices.
 ```http
-GET /invoice/
+GET /api/invoice/
 ```
 Sample Response
 ```json
@@ -189,7 +189,7 @@ Sample Response
 ### Create Item
 Create a new item.
 ```http
-POST /item
+POST /api/item
 Content-Type: application/json
 ```
 Request:
@@ -210,11 +210,11 @@ Sample Response
 ### Get Item
 Get details of a specific item
 ```http
-GET /item/{item_id}
+GET /api/item/{item_id}
 ```
 Example
 ```http
-GET /item/1
+GET /api/item/1
 ```
 Sample Response
 ```json
@@ -232,11 +232,11 @@ Sample Response
 ### Update Item
 Update an existing item.
 ```http
-POST /item/update/{item_id}
+POST /api/item/update/{item_id}
 ```
 Example 
 ```http
-POST /item/update/1
+POST /api/item/update/1
 ```
 Request:
 ```json
@@ -258,11 +258,11 @@ Sample Response
 Delete a specific item.
 Get details of a specific item
 ```http
-DELETE /item/{item_id}
+DELETE /api/item/{item_id}
 ```
 Example
 ```http
-DELETE /item/1
+DELETE /api/item/1
 ```
 Sample Response
 ```json
@@ -275,7 +275,7 @@ Sample Response
 ### List Item
 Retrieve a list of all invoices.
 ```http
-GET /item/
+GET /api/item/
 ```
 Sample Response
 ```json
