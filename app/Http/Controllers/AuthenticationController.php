@@ -66,4 +66,96 @@ class AuthenticationController extends Controller
         }
     }
 
+    public function register(Request $request): JsonResponse
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required','string', 'regex:/^[\pL\s\-]+$/u'],
+                'email' => ['required', 'email', Rule::unique('users')],
+                'password' => ['required', 'string'],
+            ],
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'ok' => false,
+                'msg' => 'Login failed',
+                'error' => $validator->errors()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' =>$request->password,
+            ]);
+
+
+            return response()->json([
+                'ok' => true,
+                'msg' => 'Customer account created successfully',
+
+            ], Response::HTTP_OK);
+
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'ok' => false,
+                'msg' => 'An internal error occured. Please try again later',
+                'error' => $ex->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public function adminRegister(Request $request): JsonResponse
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => ['required','string', 'regex:/^[\pL\s\-]+$/u'],
+                'email' => ['required', 'email', Rule::unique('users')],
+                'password' => ['required', 'string'],
+            ],
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'ok' => false,
+                'msg' => 'Login failed',
+                'error' => $validator->errors()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        try {
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' =>$request->password,
+                'usertype' => 'admin'
+            ]);
+
+
+            return response()->json([
+                'ok' => true,
+                'msg' => 'Admin account created successfully',
+
+            ], Response::HTTP_OK);
+
+        } catch (Exception $ex) {
+            Log::error($ex->getMessage());
+
+            return response()->json([
+                'ok' => false,
+                'msg' => 'An internal error occured. Please try again later',
+                'error' => $ex->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }

@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 Route::controller(AuthenticationController::class)->group(function () {
 
     Route::post('login', 'login');
+    Route::post('register','register');
+    Route::post('admin/register','adminRegister');
 });
 
 Route::middleware(AuthenticateApi::class)->group(function () {

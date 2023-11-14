@@ -1,6 +1,13 @@
 ## Invoicing System API Documentation
 
 ### Table of Contents
+- [Authentication](#authentication)
+	- [Create Account](#create-account)
+		- [Customer](#customer)
+		- [Admin](#admin)
+	- [Get API Token](#get-api-token)
+	- [Using API Token in Authorization Header](#using-api-token-in-authorization-header)
+	- [Using API Token in Request Query](#using-api-token-in-request-query)
 - [Endpoints](#endpoints)
 	- [Invoice](#invoice)
 		- [Create Invoice](#create-invoice)
@@ -14,9 +21,54 @@
 		- [Delete Item](#delete-item)
 		- [List Item](#list-item)
 
-## Authentication
+# Authentication
 
-### Get API Token
+## Create Account
+
+### Customer
+To create a new customer account, send a post request to `api/register`  with name, email address and password.
+```http
+POST /api/register
+```
+Request
+```json
+{
+  "name": "Roland Nii",
+  "email": "test@me.com",
+  "password": "password"
+}
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "Customer account created successfully",
+}
+```
+
+### Admin
+To create a new admin account, send a post request to `api/admin/register`  with name, email address and password.
+```http
+POST /api/admin/register
+```
+Request
+```json
+{
+  "name": "Edmund Alabi",
+  "email": "edmund@shaq.com",
+  "password": "password"
+}
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "Admin account created successfully",
+}
+```
+
+
+## Get API Token
 To access the API, you will need to obtain an access token. You can do this by sending a POST request to the `api/login` endpoint with your email address and password.
 ```http
 POST /api/login
@@ -36,19 +88,20 @@ Sample Response
 	"data": {
 		"name": "Roland Dodoo",
 		"email": "test@me.com",
+		"usertype": "customer",
 		"user_id": "01hf0e37d0db737qzxegyx6312",
 		"token": "6|SGCUo1vR9BUpJW1jL0a6YjjpoDCpEBLMhWGDAXBn81075189"
 	}
 }
 ```
-### Using API Token in Authorization Header
+## Using API Token in Authorization Header
 
 Include your API token in the Authorization header using the Bearer toke format.
 ```http
 GET /api/endpoint
 Authorization: Bearer YOUR_API_Token
 ```
-### Using API Token in Request Query
+## Using API Token in Request Query
 Include  your API token in a request query.
 ```http
 GET /api/endpoint?api_key=YOUR_API_Token
