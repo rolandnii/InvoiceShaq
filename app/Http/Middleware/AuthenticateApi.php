@@ -24,15 +24,40 @@ class AuthenticateApi
     public function handle(Request $request, Closure $next): Response
     {
 
-        if ($request->bearerToken() || request('auth-key') ?? false) {
+        if ($request->bearerToken() || request('auth_key') ?? false) {
 
-            $token =  $request->query('auth-key') ?? $request->bearerToken();
+            $token =  $request->query('auth_key') ?? $request->bearerToken();
 
             $key = PersonalAccessToken::findToken($token);
 
+            
             if (!empty($key->id)) {
 
-                return $next($request);
+                //Only admin accounts can add , update and delete items
+                if (($request->is('api/item') && $request->isMethod('post')) || ($request->is('api/item/*') && ($request->isMethod('post') || $request->isMethod('delete'))) ) {
+                    $user = User::findOr($key->tokenable_id,function(){
+                        return false;
+                    });
+
+                    if (!$user) {
+                        return response()->json([
+                            'ok' => false,
+                            'msg' => 'auth key is invalid'
+                        ], Response::HTTP_BAD_REQUEST);
+                    }
+
+                    if ( strtolower($user->usertype) == 'customer') {
+                        return response()->json([
+                            'ok' => false,
+                            'msg' => 'This account is not authorized to access this api'
+                        ], Response::HTTP_BAD_REQUEST);
+                    }
+
+
+                }
+        
+                  return $next($request);
+                
             }
 
 

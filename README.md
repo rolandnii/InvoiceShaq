@@ -9,17 +9,17 @@
 	- [Using API Token in Authorization Header](#using-api-token-in-authorization-header)
 	- [Using API Token in Request Query](#using-api-token-in-request-query)
 - [Endpoints](#endpoints)
-	- [Invoice](#invoice)
-		- [Create Invoice](#create-invoice)
-		- [Get Invoice](#get-invoice)
-		- [Delete Invoice](#delete-invoice)
-		- [List Invoice](#list-invoice)
 	- [Item](#item)
 		- [Create Item](#create-item)
 		- [Get Item](#get-item)
 		- [Update Item](#update-item)
 		- [Delete Item](#delete-item)
 		- [List Item](#list-item)
+	- [Invoice](#invoice)
+		- [Create Invoice](#create-invoice)
+		- [Get Invoice](#get-invoice)
+		- [Delete Invoice](#delete-invoice)
+		- [List Invoice](#list-invoice)
 
 # Authentication
 
@@ -104,9 +104,143 @@ Authorization: Bearer YOUR_API_Token
 ## Using API Token in Request Query
 Include  your API token in a request query.
 ```http
-GET /api/endpoint?api_key=YOUR_API_Token
+GET /api/endpoint?auth_key=YOUR_API_Token
 ```
 # Endpoints
+
+## Item
+
+### Create Item
+Create a new item. Only an admin can access this api
+```http
+POST /api/item
+Content-Type: application/json
+```
+Request:
+```json
+{
+	"description": "sandals men",
+	"unit_price": "2023-10-21",
+	"total_quantity": "2023-11-21",
+}
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "New item created successfully"
+}
+```
+### Get Item
+Get details of a specific item
+```http
+GET /api/item/{item_id}
+```
+Example
+```http
+GET /api/item/1
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "Item details fetched successfully",
+	"data": {
+		"description": "Socks",
+		"unit_price": "12.50",
+		"total_quantity": 25
+	}
+}
+
+```
+### Update Item
+Update an existing item.  Only an admin can access this api
+```http
+POST /api/item/update/{item_id}
+```
+Example 
+```http
+POST /api/item/update/1
+```
+Request:
+```json
+{
+	
+	"description": "sandals men",
+	"unit_price": "2023-10-21",
+	"total_quantity": "2023-11-21",
+}
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "Item updated successfully"
+}
+```
+### Delete Item
+Delete a specific item.  Only an admin can access this api
+Get details of a specific item
+```http
+DELETE /api/item/{item_id}
+```
+Example
+```http
+DELETE /api/item/1
+```
+Sample Response
+```json
+{
+    "ok": true,
+    "msg": "item deleted successfully",
+}
+```
+
+### List Item
+Retrieve a list of all invoices.
+```http
+GET /api/item/
+```
+Sample Response
+```json
+{
+	"ok": true,
+	"msg": "Items fetched successfully",
+	"data": [
+		{
+			"description": "Socks",
+			"unit_price": "12.50",
+			"total_quantity": 25
+		},
+		{
+			"description": "Shirt",
+			"unit_price": "20.00",
+			"total_quantity": 11
+		},
+		{
+			"description": "Sandals",
+			"unit_price": "35.00",
+			"total_quantity": 10
+		},
+		{
+			"description": "sandals men",
+			"unit_price": "20.00",
+			"total_quantity": 10
+		}
+	]
+}
+```
+
+
+
+
+
+
+
+
+
+
+
 
 ## Invoice
 
@@ -237,135 +371,3 @@ Sample Response
 	]
 }
 ```
-## Item
-
-### Create Item
-Create a new item.
-```http
-POST /api/item
-Content-Type: application/json
-```
-Request:
-```json
-{
-	"description": "sandals men",
-	"unit_price": "2023-10-21",
-	"total_quantity": "2023-11-21",
-}
-```
-Sample Response
-```json
-{
-	"ok": true,
-	"msg": "New item created successfully"
-}
-```
-### Get Item
-Get details of a specific item
-```http
-GET /api/item/{item_id}
-```
-Example
-```http
-GET /api/item/1
-```
-Sample Response
-```json
-{
-	"ok": true,
-	"msg": "Item details fetched successfully",
-	"data": {
-		"description": "Socks",
-		"unit_price": "12.50",
-		"total_quantity": 25
-	}
-}
-
-```
-### Update Item
-Update an existing item.
-```http
-POST /api/item/update/{item_id}
-```
-Example 
-```http
-POST /api/item/update/1
-```
-Request:
-```json
-{
-	
-	"description": "sandals men",
-	"unit_price": "2023-10-21",
-	"total_quantity": "2023-11-21",
-}
-```
-Sample Response
-```json
-{
-	"ok": true,
-	"msg": "Item updated successfully"
-}
-```
-### Delete Item
-Delete a specific item.
-Get details of a specific item
-```http
-DELETE /api/item/{item_id}
-```
-Example
-```http
-DELETE /api/item/1
-```
-Sample Response
-```json
-{
-    "ok": true,
-    "msg": "item deleted successfully",
-}
-```
-
-### List Item
-Retrieve a list of all invoices.
-```http
-GET /api/item/
-```
-Sample Response
-```json
-{
-	"ok": true,
-	"msg": "Items fetched successfully",
-	"data": [
-		{
-			"description": "Socks",
-			"unit_price": "12.50",
-			"total_quantity": 25
-		},
-		{
-			"description": "Shirt",
-			"unit_price": "20.00",
-			"total_quantity": 11
-		},
-		{
-			"description": "Sandals",
-			"unit_price": "35.00",
-			"total_quantity": 10
-		},
-		{
-			"description": "sandals men",
-			"unit_price": "20.00",
-			"total_quantity": 10
-		}
-	]
-}
-```
-
-
-
-
-
-
-
-
-
-
