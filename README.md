@@ -197,7 +197,7 @@ Sample Response
 ```
 
 ### List Item
-Retrieve a list of all invoices.
+Retrieve a list of all items.
 ```http
 GET /api/item/
 ```
